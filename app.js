@@ -18,9 +18,13 @@ server.get('/',(req,res)=>{
     res.send("this is the server side")
 })
 
+/* ------------------------------------------------------------ Admin crude router ------------------------------------------------------------ */
 const AdminRouter = require("./server/router/AdminRouter")
 server.use('/admin',AdminRouter)
 
+/* ----------------------------------------------------- student class crude router ----------------------------------------------------- */
+const StudentClassRouter = require("./server/router/StudentClassRouter")
+server.use('/studentClass',StudentClassRouter)
 
 server.listen(port,()=>{
     console.log("this server is running")
