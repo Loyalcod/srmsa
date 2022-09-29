@@ -1,5 +1,5 @@
 const express = require("express")
-const { student, getStudent, getOneStudent, updateStudent,  } = require("../controller/studentController")
+const { student, getStudent, getOneStudent, updateStudent, deleteStudent,  } = require("../controller/studentController")
 const router = express.Router()
 
 
@@ -16,6 +16,9 @@ router.get('/:studentId', getOneStudent)
 
 /* ------------------------------------------------------ update one student router ----------------------------------------------------- */
 router.patch('/:studentId', updateStudent)
+
+/* -------------------------------------------------------- delete student router ------------------------------------------------------- */
+router.delete('/:classId/:studentId',deleteStudent)
 
 
 module.exports = router
