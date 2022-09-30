@@ -43,7 +43,9 @@ server.use('/result',resultRouter)
 const comboRouter = require("./server/router/ComboRouter")
 server.use('/combo',comboRouter)
 
-
+/* ------------------------------------------------------ total count crude router ------------------------------------------------------ */
+const totalCountRouter = require("./server/router/totalCountRouter")
+server.use('/totalcount',totalCountRouter)
 
 
 
