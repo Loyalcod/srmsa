@@ -39,6 +39,12 @@ const resultRouter = require("./server/router/resultRouter")
 server.use('/result',resultRouter)
 
 
+/* ---------------------------------------------- student subject combination crude router ---------------------------------------------- */
+const comboRouter = require("./server/router/ComboRouter")
+server.use('/combo',comboRouter)
+
+
+
 
 
 

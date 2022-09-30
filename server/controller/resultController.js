@@ -9,7 +9,7 @@ exports.createResult = async(req,res)=>{
     const { studentId, subjectId, classId, mark } = req.body
 
     try {
-        const resultExist = await Result.exists({$or: [{studentId},{subjectId},{classId}]})
+        const resultExist = await Result.exists({studentId,subjectId,classId})
         if(resultExist) return res.status(401).json({error:"result already exist"})
 
         const createresult = await Result.create({
