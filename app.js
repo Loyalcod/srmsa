@@ -1,5 +1,6 @@
 const express = require("express")
 const server = express()
+const cors = require('cors')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const path = require("path")
@@ -7,6 +8,7 @@ const connectDB = require("./server/config/db")
 require("dotenv").config({path: path.resolve(__dirname,'./server/.env')})
 
 connectDB()
+server.use(cors())
 
 const port = process.env.PORT  
 server.use(bodyParser.urlencoded({extended: false}))
@@ -21,6 +23,10 @@ server.get('/',(req,res)=>{
 /* ------------------------------------------------------------ Admin crude router ------------------------------------------------------------ */
 const AdminRouter = require("./server/router/AdminRouter")
 server.use('/admin',AdminRouter)
+
+/* ------------------------------------------------------- the middle ware router ------------------------------------------------------- */
+const AuthMiddleware = require('./server/middlewares/AuthMiddleware')
+server.use('/middleware',AuthMiddleware)
 
 /* ----------------------------------------------------- student class crude router ----------------------------------------------------- */
 const StudentClassRouter = require("./server/router/StudentClassRouter")
