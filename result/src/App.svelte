@@ -1,30 +1,39 @@
 <script>
-	export let name;
+	import Header from "./components/Header.svelte";	
+	import Footer from './components/Footer.svelte'
+	import Modal from './components/Modal.svelte'
+	import ModalForm from './components/ModalForm.svelte'
+
+	let src = './images/result1.jpeg'
+
+	let showmodal = false;
+
+	const ToggoleModal = ()=>{
+		showmodal = !showmodal
+
+	}
+
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+
+<Header on:click={ToggoleModal} />
+<Modal {showmodal} on:click={ToggoleModal}>
+	<ModalForm />
+
+</Modal>
+
+<img src={src} alt="Result Checker Images">
+
+<Footer />
+
+
+
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	img{
+		display: block;
+		width: 100vw;
+		height: 75vh;
+		object-fit:cover;
 	}
 </style>
