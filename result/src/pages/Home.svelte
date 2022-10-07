@@ -12,7 +12,7 @@
 		showmodal = !showmodal
 
 	}
-	
+
 	const prepareResult = (e) => {		
 		let email = e.detail.email
 		let registrationNo = e.detail.registrationNo

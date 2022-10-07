@@ -4,21 +4,35 @@
     import Header from "../components/Header.svelte";
     import Modal from "../components/Modal.svelte";
     import ModalForm from "../components/ModalForm.svelte";
+    import SingleResult from "../components/SingleResult.svelte";
     
+
+    /* ------------------------------------------- geting fetching the check result details in db ------------------------------------------- */
     export let urlparams;
     let email = urlparams.email
     let regNo = urlparams.registrationNo
 
-    onMount(async()=>{
+    
+
+    let result = []
+
+    onMount(async () => {
         try {
             const response = await fetch(`http://localhost:7000/result/${email}/${regNo}`)
             const data = await response.json()
-            console.log(data)
+            // console.log(data)
+            result = data
+            console.log(result)
 
         } catch (error) {
             console.log(error)
         }
     })
+     /* ------------------------------------------- geting fetching the check result details in db ------------------------------------------- */
+
+ 
+    
+    
    
    let backHome = '/'
 
@@ -31,16 +45,21 @@
 <Header on:click={ToggoleModal} />
 
 <Modal {showmodal} on:click={ToggoleModal}>
-    <ModalForm />
+    <ModalForm on:resultInput={prepareResult} />
 </Modal>
 
     <div class="container result-area">
-        <h4 class="text-center fs-4 mt-5">Result Details</h4>
+        
+        <h4 class="text-center fs-4 mt-5">Result Details</h4>        
         <hr>
-        <p class="m-1"><strong>Student Name: </strong>Peter</p>
-        <p class="m-1"><strong>Registration No.: </strong>45547</p>
-        <p class="m-1"><strong>Student Class: </strong>Grade 4</p>
 
+        {#if result.length !== 0 }
+        {#if result !== 'result does not exist' }
+        <p class="m-1"><strong>Student Name: </strong>{result[0].studentName}</p>
+        <p class="m-1"><strong>Registration No.: </strong>{result[0]?.registrationNo}</p>
+        <p class="m-1"><strong>Student Class: </strong>{result[0]?.classId?.className}</p>
+
+        {#if result[0].resultId.length !== 0}
         <table class="table table-bordered table-striped shadow-lg rounded ">
             <thead>
                 <tr>
@@ -50,21 +69,12 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <tr>
-                    <td>1</td>
-                    <td>Mathematics</td>
-                    <td>65</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Computer Science</td>
-                    <td>63</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>English Language</td>
-                    <td>78</td>
-                </tr>
+
+               <!-- /* -------------------------------------------------- importing the student result here ------------------------------------------------- */ -->
+
+               {#each result[0].resultId as singleResult, i}
+               <SingleResult {singleResult} {i} />                
+               {/each}
 
                 <tr>
                     <td colspan="2" class="text-center"><strong> Total Mark</strong></td>
@@ -79,6 +89,14 @@
                 </tr>
             </tbody>
         </table>
+        {:else}
+            <h1 class="py-4 my-4 text-center">Result have not been decleared</h1>
+        {/if}
+
+        {:else}
+            <h1 class="text-center py-5">No Record Was Found</h1>
+        {/if}
+        {/if}
 
         <a href={backHome} class="text-decoration-none text-dark">Back Home</a>
     </div>
