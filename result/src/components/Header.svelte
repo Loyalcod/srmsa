@@ -11,7 +11,7 @@
 
             <ul class="nav">
                 <li  class="nav-item"><a href="/" class="nav-link link-light px-2">Home</a></li>
-                <li on:click class="nav-item"><a href="#" class="nav-link link-light px-2">Check Result</a></li>
+                <li on:click class="nav-item"><a href="" class="nav-link link-light px-2">Check Result</a></li>
                 <li class="nav-item"><a href="/" class="nav-link link-light px-2">Admin</a></li>
             </ul>
         </div>

@@ -12,6 +12,17 @@
 		showmodal = !showmodal
 
 	}
+	
+	const prepareResult = (e) => {		
+		let email = e.detail.email
+		let registrationNo = e.detail.registrationNo
+
+		if((email === undefined || email == '') || (registrationNo === undefined || registrationNo == null)){
+			alert("pls fill in the properties")
+		} else{
+			window.location.assign(window.location.href + `result/${email}/${registrationNo}`)
+		}
+	}
 
 </script>
 
@@ -19,7 +30,7 @@
 <Header on:click={ToggoleModal} />
 
 <Modal {showmodal} on:click={ToggoleModal}>
-	<ModalForm />
+	<ModalForm on:resultInput={prepareResult} />
 
 </Modal>
 
