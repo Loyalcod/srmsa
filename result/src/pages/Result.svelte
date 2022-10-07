@@ -1,9 +1,24 @@
 <script>
+    import { onMount } from "svelte/internal";
     import Footer from "../components/Footer.svelte";
     import Header from "../components/Header.svelte";
     import Modal from "../components/Modal.svelte";
     import ModalForm from "../components/ModalForm.svelte";
     
+    export let urlparams;
+    let email = urlparams.email
+    let regNo = urlparams.registrationNo
+
+    onMount(async()=>{
+        try {
+            const response = await fetch(`http://localhost:7000/result/${email}/${regNo}`)
+            const data = await response.json()
+            console.log(data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    })
    
    let backHome = '/'
 

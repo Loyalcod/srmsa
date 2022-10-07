@@ -14,7 +14,7 @@ router.post('/', verifyAuthentication, createResult)
 router.get('/', verifyAuthentication, getResult)
 
 /* --------------------------------------------------------- check result router -------------------------------------------------------- */
-router.get('/:registrationNo/:email', checkResult)
+router.get('/:email/:registrationNo', checkResult)
 
 /* -------------------------------------------------------- get one result router ------------------------------------------------------- */
 router.get('/:resultId', verifyAuthentication, getOneResult)
