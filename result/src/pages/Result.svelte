@@ -11,6 +11,9 @@
     export let urlparams;
     let email = urlparams.email
     let regNo = urlparams.registrationNo
+    let score = 0
+    let total = 0
+    let percentage = 0
 
     
 
@@ -24,6 +27,15 @@
             result = data
             console.log(result)
 
+            if(result[0].resultId.length !== 0){                
+                result[0].resultId.forEach(singleResult => {
+                    total += 100;
+                    score += singleResult.mark;                    
+                });
+            }
+
+            percentage = (score/total * 100).toFixed(2)
+
         } catch (error) {
             console.log(error)
         }
@@ -31,7 +43,7 @@
      /* ------------------------------------------- geting fetching the check result details in db ------------------------------------------- */
 
  
-    
+
     
    
    let backHome = '/'
@@ -40,6 +52,26 @@
    const ToggoleModal = () =>{
     showmodal = !showmodal
    }
+
+
+        /* ----------------------------------------------------- checking result form modal ----------------------------------------------------- */
+            
+            const prepareResult = (e) => {
+
+                let email = e.detail.email
+                let registrationNo = e.detail.registrationNo
+
+                if((email === undefined || email == '') || (registrationNo === undefined || registrationNo == null)){
+                    alert("pls fill in the properties")
+                } else{
+                    let url = new URL(window.location.href + `result/${email}/${registrationNo}`)
+                    let origin = url.origin
+                    window.location.assign(origin+`/result/${email}/${registrationNo}`)
+                }
+            }
+
+        /* ----------------------------------------------------- checking result form modal ----------------------------------------------------- */
+
 </script>
 
 <Header on:click={ToggoleModal} />
@@ -78,11 +110,11 @@
 
                 <tr>
                     <td colspan="2" class="text-center"><strong> Total Mark</strong></td>
-                    <td> <strong>150 Out of 300</strong></td>
+                    <td> <strong>{score} Out of {total}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-center"><strong>Percentage</strong></td>
-                    <td><strong>50</strong>%</td>
+                    <td><strong>{percentage}</strong>%</td>
                 </tr>
                 <tr>
                     <td colspan="3" ><a href="#" class="btn btn-primary px-5 " on:click={ () => window.print()}>Print</a></td>
